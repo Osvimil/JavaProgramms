@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+  <cc:interface shortDescription="Menú de navegación."/>
+  <cc:implementation>
+    <link jsf:name="/css/navegacion.css"/>
+    <aside id="#{cc.clientId}" class="navegacion">
+      <nav>
+        <h1>Navegación</h1>
+        <ul>
+          <li><a jsf:outcome="/index">Inicio</a></li>
+          <ui:fragment rendered="#{request.isUserInRole('Administrador')}">
+            <li><a jsf:outcome="/formCategorias">Categorías</a></li>
+          </ui:fragment>
+          <ui:fragment rendered="#{request.isUserInRole('Administrador')}">
+            <li><a jsf:outcome="/formUsuarios">Usuarios</a></li>
+          </ui:fragment>
+          <ui:fragment rendered="#{request.isUserInRole('Administrador')}">
+            <li><a jsf:outcome="/formClientes">Clientes</a></li>
+          </ui:fragment>
+          <ui:fragment rendered="#{request.isUserInRole('Administrador')}">
+            <li><a jsf:outcome="/formProductos">Productos</a></li>
+          </ui:fragment>
+          <ui:fragment rendered="#{request.isUserInRole('Administrador')}">
+            <li>
+              <a jsf:outcome="/formReporte" target="reporte"
+                 onclick="location.reload()">
+                Ventas de Hoy
+              </a>
+            </li>
+          </ui:fragment>
+          <ui:fragment rendered="#{request.isUserInRole('Cliente')}">
+            <li>
+              <a jsf:outcome="/formProductosCliente">Catálogo de Productos</a>
+            </li>
+          </ui:fragment>
+          <ui:fragment rendered="#{request.isUserInRole('Cliente')}">
+            <li><a jsf:outcome="/formCarrito">Carrito de Compras</a></li>
+          </ui:fragment>
+        </ul>
+      </nav>
+    </aside>
+  </cc:implementation>
+</html>

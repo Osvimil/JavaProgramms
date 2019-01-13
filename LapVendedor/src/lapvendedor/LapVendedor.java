@@ -23,7 +23,7 @@ public class LapVendedor {
     
     public static void main(String[] args) {
         
-        final Vendedor ven1 = new Vendedor(1,"Oswaldo");
+        final Vendedor ven1 = new Vendedor(1,"chairo");
         final Vendedor ven2 = new Vendedor(2,"Alfonso");
         final Vendedor ven3 = new Vendedor(3,"Lupe");
         final Vendedor ven4 = new Vendedor(4,"Paps");

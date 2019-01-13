@@ -70,8 +70,8 @@ public class ArrayListR {
         map.put(p3, 32);
         map.put(p4, 2);
         
-        for(Persona llave: map.keySet()){
-            System.out.println(llave+ ": "+map.get(llave));        
+          for(Persona llave: map.keySet()){
+        System.out.println(llave+ ": "+map.get(llave));
         }
         
         Set<Persona> set = new LinkedHashSet<Persona>();
@@ -80,10 +80,6 @@ public class ArrayListR {
         set.add(p2);
         set.add(p3);
         set.add(p4);
-        System.out.println(set);
-        
-        
-        
-    }
-    
+        System.out.println(set);        
+    }   
 }

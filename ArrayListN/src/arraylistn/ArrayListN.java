@@ -37,8 +37,5 @@ public class ArrayListN {
             System.out.println(llave+ ": "+valor);
         
         }
-        
-    
-    }
-    
+    }   
 }

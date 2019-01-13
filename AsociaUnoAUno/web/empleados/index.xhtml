@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:rnjsf="http://xmlns.jcp.org/jsf/composite/rnjsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <body>
+    <ui:composition template="/WEB-INF/plantillas/plantilla.xhtml">
+      <ui:param name="título" value="Empleados"/>
+      <ui:define name="contenido">
+        <link jsf:library="rnjsf" jsf:name="css/listado.css"/>
+        <form jsf:prependId="false">
+          <rnjsf:herramientasPrincipal filtro="#{ctrlEmpleados.filtro}"
+                                       action="#{ctrlEmpleados.cargaInstancias()}"/>
+          <rnjsf:mensajes/>
+          <rnjsf:listado value="#{ctrlEmpleados.instancias}">
+            <f:facet name="encabezados">
+              <span>RFC</span>
+              <span>Nombre</span>
+              <span>Acciones</span>              
+            </f:facet>
+            <span class="principal">
+              <a jsf:outcome="detalle">
+                <f:param name="id" value="#{it.id}"/>
+                #{it.rfc}
+              </a>
+            </span>
+            <span class="secundario">#{it.nombre}</span>
+            <span class="acciones">
+              <rnjsf:botonEliminar objeto="#{it}" textoDeConfirmacion=
+                                   "Confirma eliminar a #{it.rfc}"/>
+            </span>
+          </rnjsf:listado>
+        </form>
+      </ui:define>
+    </ui:composition>
+  </body>
+</html>

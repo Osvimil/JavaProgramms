@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!-- Esta es una plantilla. Las páginas del sitio la utilizan para no escribir varias
+veces el código que se repite en las página de la aplicación. Las partes del sitio que
+no se parecen, se indican con variables y con elementos insert, que deben ser
+proporcionados por las páginas que usan esta plantilla y son llamadas páginas
+clientes. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+  <h:head>
+    <meta charset="UTF-8" />
+    <!-- El valor de la variable título debe ser proporcionado por la página cliente.
+    -->
+    <title>#{título} - Asociación Uno A Uno</title>
+    <meta name="viewport" content="width=device-width" />
+    <link jsf:library="rnjsf" jsf:name="css/comun.css" />
+    <link jsf:name="css/comun.css" />
+  </h:head>
+  <h:body>
+    <h1>#{título} - Asociación Uno A Uno</h1>
+    <!-- Esta sección se puede cambiar añadiende la definición con nombre "secciones"
+    en la página cliente; si se omite, se inserta el contenido definido aquí.-->
+    <ui:insert name="secciones">
+      <aside class="secciones">
+        <nav>
+          <div class="hamburguesa"></div>
+          <ul>
+            <li>
+              <strong>Uno a Uno</strong>
+              <ul>
+                <li><a jsf:outcome="/index">Computadoras</a></li>
+                <li><a jsf:outcome="/empleados/index">Empleados</a></li>                
+              </ul>
+            </li>            
+          </ul>
+        </nav>
+      </aside>
+    </ui:insert>
+    <ui:insert name="contenido"/>
+    <footer>
+      Copyright © 2017 Ricardo Armando Machorro Reyes
+    </footer>
+  </h:body>
+</html>

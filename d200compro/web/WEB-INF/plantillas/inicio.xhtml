@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+Copyright 2017 Ricardo Armando Machorro Reyes.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!-- Plantilla para inicio de sesión. Se utiliza para no repetir código. Las
+vistas iniciarSesión y errorIniciandoSesion utilizan el mismo contenido, pero
+esta última muestra un mensaje de error. Las páginas mencionadas usan esta
+plantilla y son llamadas páginas clientes. La página errorIniciandoSesión agrega
+el mensaje de error. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+  <ui:param name="título" value="Iniciar Sesión"/>
+  <h:head>
+    <title>#{título} - Compro</title>
+    <ezcomp:head/>
+    <link jsf:name="css/plantilla.css"/>
+    <link jsf:name="css/header.css"/>
+    <link jsf:name="css/campo.css"/>
+  </h:head>
+  <h:body>
+    <!-- El valor de action debe ser "j_security_check" para que
+    funcione el reconocimiento de usuarios. -->
+    <form action="j_security_check" method="post">
+      <header>
+        <h1>#{título}</h1>
+      </header>
+      <div class="contenido">
+        <main role="main">
+          <!-- En este punto se inserta el mensaje de error. La página
+          cliente debe usar la etiqueta <ui:define name="mensaje">.-->
+          <ui:insert name="mensaje"/>
+          <div class="columnas">
+            <div class="imagen crece">
+              <img alt="Compro" jsf:name="img/shopping-basket-full256.png"/>
+            </div>
+            <div>
+              <ezcomp:campo label="Identificador" accesskey="I"
+                            muestraError="false">
+                <!-- Campo de identificador de usuario. El valor de name debe
+                ser "j_username" para que funcione el reconocimiento de
+                usuarios. -->
+                <input name="j_username" type="text" autofocus="autofocus"/>            
+              </ezcomp:campo>
+              <ezcomp:campo label="Contraseña" accesskey="O"
+                            muestraError="false">
+                <!-- Campo de contraseña. El valor de name debe ser
+                "j_password" para que funcione el reconocimiento de usuarios.
+                -->
+                <input name="j_password" type="password"/>
+              </ezcomp:campo>
+              <ezcomp:indicaCamposObligatorios/>
+              <p class="botones">
+                <button  accesskey="C" jsf:outcome="/index">
+                  Cancelar
+                </button>
+                <button type="submit" accesskey="S" class="principal">
+                  Iniciar Sesión
+                </button>
+              </p>
+            </div>
+          </div>
+        </main>
+      </div>
+      <ezcomp:footer/>
+    </form>
+  </h:body>
+</html>

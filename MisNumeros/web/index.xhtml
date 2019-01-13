@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"         
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+      <ui:param name="titulo" value="Numero"/>
+     
+    <head jsf:id="head">
+        <meta charset="UTF-8"/>
+        <title>#{titulo}</title>
+        <meta name="viewport" content="width= device-width"/>
+        <link jsf:name ="css/estilos.css"/>
+    </head>
+    <body jsf:id="body">
+        <header>
+            <h1>#{titulo}</h1>
+        </header>
+        
+        <form jsf:prependId="false">
+            <div class="mensaje">
+                <h:messages globalOnly="false" layout="table" infoClass="info" errorClass="error"/>
+                
+            </div>
+            <p>
+                <em>El borde azul es compulsury</em>
+            </p>
+            <ui:param name="lblEntero" value="Enrero"/>
+            <p class="campo">
+                <label jsf:id ="#{lblEntero}" label="#{lblEntero}" accesskey="E">
+                #{lblEntero}
+                <input type="number" jsf:label="#{lblEntero}" autofocus="autofocus" required="required"
+                       min="0" max="20" step="1" infoValue="#{eNumeros.entero}"/>
+                </label>
+                <br/> <em>Entre 0 y 20</em>
+                <h:message for="#{lblEntero}" errorClass="error" infoClass="info"/>
+            </p>
+            <ui:param name="lblRango" value="Rango"/>
+            <p class="campo">
+                3
+                <label jsf:id="#{lblRango}" label="#{lblRango}" accesskey="R"/>
+                <input jsf:id="v" type="range" jsf:label="#{lblRango}" min="3" max="10"
+                       step="1" list="rayas" jsf:value="#{cNumeros.rango}"
+                       />
+                10
+                <h:message for="#{lblRango}" errorClass="error" infoClass="info"/>
+            </p>
+            <p class="campo">
+                <label for="medidor">Porcentaje de Entero</label>
+                <meter id="medidor" mnin="0" max="1" low="0.3" high="0.7"
+                       optimum="0.5" value="#{cNumeros.porcentaje}">
+                    <h:outputText value="#{cNumeros.porcentaje}">
+                        <f:convertNumber type="percent" locale="es-MX"/>
+                    </h:outputText> 
+                </meter>               
+            </p>
+            <ui:param name="lblNumero" value="Numero"/>
+            <p class="campo">
+                <label jsf:id="#{lblNumero}" label="#{lblNumero}" accesskey="N"/>
+                <input type="text" jsf:label="#{lblNumero}" class="numero"
+                       required="required" pattern="[0-9,]+[.]\d{2}?"
+                       placeholder="2 decimales" maxlength="11" size="13"
+                       jsf:value="#{cNumeros.numero}">
+                    <f:convertNumber pattern="#,##0.00" locale="es-MX"/>
+                </input>
+            </p>
+            <p class="campo">
+                <label>Precio</label>
+                <h:outputText value="#{cNumeros.precio}">
+                    <f:convertNumber type="currency" locale="es-MX"/>
+                </h:outputText>
+            </p>
+            
+            <p class="accion">
+                <input type="submit" value="Procesar" accesskey="p"
+                       jsf:action="#{cNumeros.procesa()}"/>               
+            </p>
+        </form>
+        <datalist id="rayas">
+            <option value="3"/>
+            <option value="4"/>
+            <option value="5"/>
+            <option value="6"/>
+            <option value="7"/>
+            <option value="8"/>
+            <option value="9"/>
+            <option value="10"/>
+            
+        </datalist>
+        <footer>Copyright</footer>
+    </body>
+</html>
+

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<!--
+Copyright 2017 Ricardo Armando Machorro Reyes.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <cc:interface shortDescription="Lista responsiva.">
+    <cc:attribute name="value" required="true" shortDescription="Datos que se
+                  recorren. Puede ser java.util.List, arreglo,
+                  java.sql.ResultSet o un java.lang.Object individual."/>
+    <cc:attribute name="actionDetalle" required="true"
+                  method-signature="java.lang.Object detalle(java.lang.Object)"
+                  shortDescription="Acción que se ejecuta al seleccionar."/>
+    <cc:attribute name="mensajeCuandoEstaVacio" type="java.lang.String"
+                  default="No hay datos registrados."
+                  shortDescription=
+                  "Mensaje cuando el listado no tiene elementos."/>
+    <cc:attribute name="imagenId" required="false"
+                  shortDescription="Id de la imagen."/>
+    <cc:attribute name="texto1" required="true"
+                  shortDescription="Texto principal."/>
+    <cc:attribute name="texto2" required="false"
+                  shortDescription="Texto secundario."/>
+  </cc:interface>
+  <cc:implementation>
+    <link jsf:name="css/selecciona.css"/>
+    <ul id="#{cc.clientId}" class="selecciona">
+      <ui:fragment rendered="#{empty cc.attrs.value}">
+        <li class="vacio">#{cc.attrs.mensajeCuandoEstaVacio}</li>
+      </ui:fragment>
+      <ui:fragment rendered="#{not empty cc.attrs.value}">
+        <ui:repeat var="it" value="#{cc.attrs.value}">
+          <li>
+            <h:commandLink styleClass="imagen"
+                           rendered="#{!empty cc.attrs.imagenId}">
+              <f:ajax listener="#{cc.attrs.actionDetalle}" render="@all" />
+              <img alt="imagen" src="../ctrlArchivo/#{cc.attrs.imagenId}"/>
+            </h:commandLink>
+            <div class="textos">
+              <h:commandLink value="#{cc.attrs.texto1}" styleClass="texto1">
+                <f:ajax listener="#{cc.attrs.actionDetalle}" render="@all" />
+              </h:commandLink>
+              <h:outputText value="#{cc.attrs.texto2}" styleClass="texto2"
+                            rendered="#{!empty cc.attrs.texto2}"/>
+            </div>
+          </li>
+        </ui:repeat>
+      </ui:fragment>
+    </ul>
+  </cc:implementation>
+</html>

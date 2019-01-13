@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+  <h:head>
+    <ezcomp:head/>
+    <title>
+      Ventas del Día
+      <h:outputText value="#{ctrlReporte.fecha}">
+        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+      </h:outputText>
+    </title>
+    <style>
+      html {
+        display: -webkit-flex;
+        display: flex
+      }
+      body {
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        margin: 0 auto
+      }
+      h1 {text-align: center}
+      p {text-align: right}
+      table, p {
+        width: 90%;
+        margin: 0 auto
+      }
+      .numero {text-align: right}
+    </style>
+  </h:head>
+  <h:body>
+    <h1>
+      Ventas del Día
+      <h:outputText value="#{ctrlReporte.fecha}">
+        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Mexico_City"/>
+      </h:outputText>
+    </h1>
+    <h:dataTable var="it" value="#{ctrlReporte.lista}"
+                 columnClasses="normal,numero">
+      <h:column>
+        <f:facet name="header">Producto</f:facet>
+          #{it[0]}
+      </h:column>
+      <h:column>
+        <f:facet name="header">Total</f:facet>
+        <h:outputText value="#{it[1]}">
+          <f:convertNumber type="currency" locale="es-MX"/>
+        </h:outputText>
+      </h:column>
+    </h:dataTable>
+    <p>
+      <label>Total: </label>
+      #{ctrlReporte.total}
+    </p>
+  </h:body>
+</html>

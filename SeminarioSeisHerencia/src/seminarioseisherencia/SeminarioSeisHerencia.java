@@ -27,8 +27,7 @@ public class SeminarioSeisHerencia {
         alfonso.muestra();
         System.out.println("--------------");
         oswaldo.setNombre("Oswaldo Saldivar");
-        oswaldo.muestra();
-  
+        oswaldo.muestra(); 
     }
     
 }

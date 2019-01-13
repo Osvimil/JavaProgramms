@@ -1,0 +1,24 @@
+1. Crear la base de datos como se indica en el archivo "tablas.sql".
+2. Enla pestaña de prestaciones, abrir la entrada de Servidores.
+3. Clic derecho en Glassfish Server 4.1.1.
+4. Clic en Start
+5. Clic derecho en Glassfish Server 4.1.1.
+6. Clic en View Domain Admin Console
+7. En el navegador abrir el árbol
+     Configurations
+       server-config
+       Security
+         Realms
+           New...
+                         Name: compro
+                   Class Name: com.sun.enterprise.security.auth.realm.jdbc.JDBCRealm
+                 JAAS Context: jdbcRealm
+                         JNDI: jdbc/sample
+                   User Table: USUARIO
+             User Name Column: USU_ID
+              Password Column: USU_CONTRA
+                  Group Table: USUARIO_ROL
+ Group Table User Name Column: USU_ID
+            Group Name Column: ROL_ID
+Password Encryption Algorithm: SHA-256
+                     Encoding: Base64

@@ -11,9 +11,9 @@ package herenciauki;
  */
 public class AlumnoIPN extends Alumno {
     
-    long boleta;
-    String nom_escuela;
-    String materias;
+    private long boleta;
+    private String nom_escuela;
+    private String materias;
 
     public long getBoleta() {
         return boleta;

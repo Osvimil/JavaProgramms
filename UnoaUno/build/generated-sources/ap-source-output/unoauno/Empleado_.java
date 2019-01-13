@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import unoauno.Cubiculo;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-02-16T16:41:44")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-03-02T10:09:49")
 @StaticMetamodel(Empleado.class)
 public class Empleado_ { 
 

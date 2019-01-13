@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<!-- Copyright 2014 Ricardo Armando Machorro Reyes
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+  this file except in compliance with the License. You may obtain a copy of the
+  License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software distributed
+  under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+  CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+  language governing permissions and limitations under the License. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:rnjsf="http://xmlns.jcp.org/jsf/composite/rnjsf">
+  <cc:interface shortDescription=
+                "Campo de captura avanzado con etiqueta y mensajes de error.">
+    <cc:attribute name="styleClass" default="campo" type="java.lang.String"
+                  shortDescription="Clase de estilo del componente."/>
+    <cc:attribute name="label" required="false" type="java.lang.String"
+                  shortDescription="Texto de la etiqueta."/>
+    <cc:attribute name="accesskey" required="false" type="java.lang.String"
+                  shortDescription="Tecla de acceso."/>
+    <cc:attribute name="for" default="v" type="java.lang.String"
+                  shortDescription="id del elemento asociado."/>
+    <cc:attribute name="tipo" default="jsf" type="java.lang.String"
+                  shortDescription="Tipo de campo: jsf para componentes JSF,
+                  html para componentes HTML y simple sin for ni accesskey."/>
+  </cc:interface>
+  <cc:implementation>
+    <p id="#{cc.clientId}" class="#{cc.attrs.styleClass}">
+      <label jsf:for="#{cc.attrs.for}" accesskey="#{cc.attrs.accesskey}"
+             jsf:rendered="#{not empty cc.attrs.label and cc.attrs.tipo == 'jsf'}">
+        #{cc.attrs.label}
+      </label>
+      <ui:fragment rendered="#{not empty cc.attrs.label and cc.attrs.tipo == 'html'}">
+        <label for="#{cc.attrs.for}" accesskey="#{cc.attrs.accesskey}">
+          #{cc.attrs.label}
+        </label>
+      </ui:fragment>
+      <ui:fragment rendered="#{not empty cc.attrs.label
+                               and cc.attrs.tipo == 'simple'}">
+        <label>
+          #{cc.attrs.label}
+        </label>
+      </ui:fragment>
+      <ui:fragment>
+        <cc:insertChildren/>
+      </ui:fragment>
+      <rnjsf:mensaje id="m" for="#{cc.attrs.for}"
+                     rendered="#{not empty cc.attrs.for and cc.attrs.tipo == 'jsf'}"/>
+    </p>
+  </cc:implementation>
+</html>

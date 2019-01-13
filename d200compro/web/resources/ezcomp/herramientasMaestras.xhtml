@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<!--
+Copyright 2017 Ricardo Armando Machorro Reyes.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+  <cc:interface shortDescription=
+                "Barra de herramientas para las vistas maestras.">
+    <cc:attribute name="action" required="true"
+                  method-signature="java.lang.Object agrega()"
+                  shortDescription=
+                  "Acción que se ejecuta al activar el botón agregar."/>
+    <cc:attribute name="filtro" required="true"
+                  shortDescription="Valor del filtro."/>
+    <cc:attribute name="actionFiltro" required="true"
+                  method-signature="java.lang.Object filtra()"
+                  shortDescription="Acción que se ejecuta al activar el filtro."/>
+  </cc:interface>
+  <cc:implementation>
+    <link jsf:name="css/herramientas.css"/>
+    <div id="#{cc.clientId}" class="herramientas">
+      <h:commandButton value="Agregar..." accesskey="A" styleClass="principal">
+        <f:ajax listener="#{cc.attrs.action}" render="@all" />
+      </h:commandButton>
+      <ezcomp:filtro value="#{cc.attrs.filtro}" action="#{cc.attrs.actionFiltro}"/>
+    </div>
+  </cc:implementation>
+</html>

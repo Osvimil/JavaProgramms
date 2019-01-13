@@ -1,0 +1,67 @@
+/* Copyright 2014 Ricardo Armando Machorro Reyes
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+language governing permissions and limitations under the License.*//* 
+    Author     : Ricardo Armando Machorro Reyes */
+body {font-family: sans-serif}
+*:required {border: medium solid blue}
+*:focus {outline: medium dashed black}
+h1 {margin: 0; padding: 0}
+main, aside, form {display: inline-block; vertical-align: top}
+form {padding: 0.5%}
+footer, .vacio {font-size: 0.8em; text-align: center}
+.numero {text-align: right}
+.info, .error {font-weight: bold}
+.error {color: red}
+/* Para los móviles, cuando se despliega el teclado. */
+@media only screen and (max-height: 10em) {
+  footer {height: 0; display: none}
+}
+/* Cuando la ventana es angosta, las secciones se despliegan con un menú de
+ * hamburguesa. */
+@media only screen and (max-width: 599px) {
+  form {width: 98%}
+  /* Se aumenta el espacio al rededor de las anclas para que se seleccionen con los
+   * dedos. */
+  a {display: inline-block; padding: 0.5em}
+  /* Configuración del botón del menú de hamburguesa. */
+  .hamburguesa {
+    width: 32px;
+    height: 32px;
+    background: url("#{resource['rnjsf:img/hamburguesa.png']}") no-repeat
+  }
+  /* La lista del menú se oculta. */
+  .secciones nav > ul {
+    position: absolute;
+    display: none;
+    z-index: 3;
+    padding: 0.5em;
+    box-shadow: 3px 3px 5px black;
+    /*max-height: 60%;*/
+    /*overflow-y: auto*/
+  }
+  /* Al pasar el mouse al sobre la parte de las secciones se despliega el listado. */
+  .secciones nav:hover > ul {display: block}
+  /* Se quitan las viñetas del listado. */
+  .secciones ul , .secciones ul li {list-style: none; padding: 0; margin: 0}
+  /* Configuración de las etiquetas del menú. */
+  .secciones ul li a {
+    display: block;
+    color: black;
+    text-decoration: none;
+    white-space: nowrap; /* Los espacios se mantienen en la misma línea. */
+  }
+}
+@media only screen and (min-width: 600px) {
+  form {width: 60%}
+  .secciones {width: 30%; margin: 0 2%}
+}
+@media only screen and (min-width: 1000px) {
+  html {font-size: 25px}
+  input {font-size: 1em}
+}

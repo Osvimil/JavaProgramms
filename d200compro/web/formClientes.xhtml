@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+Copyright 2017 Ricardo Armando Machorro Reyes.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+  <body>
+    <ui:composition template="/WEB-INF/plantillas/plantilla.xhtml">
+      <ui:param name="titulo" value="#{ctrlClientes.titulo}"/>
+      <ui:define name="main">
+        <ezcomp:panelMaestro value="#{ctrlClientes.lista}"
+                             filtro="#{ctrlClientes.filtro}"
+                             actionFiltro="#{ctrlClientes.inicia()}"
+                             action="#{ctrlClientes.agrega()}"
+                             actionDetalle="#{ctrlClientes.detalle(it)}"
+                             texto1="#{it.id}" texto2="#{it.usuario.nombre}"
+                             rendered="#{ctrlClientes.muestraMaestro}"/>
+        <h:panelGroup rendered="#{ctrlClientes.muestraDetalle}">
+          <ezcomp:herramientasDetalle título="#{ctrlClientes.titulo}"
+                                      actionGuardar="#{ctrlClientes.guarda()}"
+                                      actionCancelar="#{ctrlClientes.inicia()}"
+                                      actionEliminar="#{ctrlClientes.elimina()}"
+                                      eliminarEsVisible="#{!ctrlClientes.nuevo}"
+                                      textoDeConfirmacion=
+                                      "Confirma eliminar a #{ctrlClientes.modelo.id}"/>
+          <ezcomp:mensajes/>
+          <ezcomp:seleccionaUno id="usuario" legend="Identificador"
+                                value="#{ctrlClientes.modelo.usuario}"
+                                filtro="#{ctrlUsuariosClientes.filtro}"
+                                lista="#{ctrlUsuariosClientes.lista}"
+                                actionFiltro="#{ctrlUsuariosClientes.inicia()}"
+                                actionDetalle="#{ctrlClientes.modelo.setUsuario(it)}"
+                                texto1="#{it.id}"
+                                texto2="#{it.nombre}"
+                                rendered="#{ctrlClientes.nuevo}"/>
+          <ezcomp:campo id="nacimiento" label="Nacimiento" accesskey="N">
+            <input jsf:id="v" type="date" placeholder="aaaa-mm-dd"
+                   jsf:value="#{ctrlClientes.nacimiento}"/>
+          </ezcomp:campo>
+          <ezcomp:campo id="horaFavorita" label="Hora Favorita"
+                        accesskey="H">
+            <input jsf:id="v" type="time" placeholder="hh:mm"
+                   jsf:value="#{ctrlClientes.horaFavorita}"/>
+          </ezcomp:campo>
+          <ezcomp:indicaCamposObligatorios/>
+        </h:panelGroup>
+      </ui:define>
+    </ui:composition>
+  </body>
+</html>

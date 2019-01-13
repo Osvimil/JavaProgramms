@@ -35,7 +35,7 @@ public class UnoMuchosRefactor {
     public static void main(String[] args) {
         
         try{
-        Equipo toluca = new Equipo(1,"Toluca");
+        Equipo toluca = new Equipo(1,"Puebla");
         Jugador esquivel = new Jugador(1,"Carlos");
         Jugador sina = new Jugador(2,"Antonio");
         Jugador rubens = new Jugador(3,"Sambueza");
@@ -48,7 +48,7 @@ public class UnoMuchosRefactor {
         
         
         
-        Equipo america = new Equipo(2,"America");
+        Equipo america = new Equipo(2,"Santos");
         Jugador quintero = new Jugador(4,"quintero");
         Jugador oribe = new Jugador(5,"peralta");
         Jugador goals = new Jugador(6,"paolo");

@@ -1,0 +1,40 @@
+/*
+Copyright 2017 Ricardo Armando Machorro Reyes.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+/* 
+    Created on : 1/08/2017, 09:31:48 AM
+    Author     : Ricardo Armando Machorro Reyes.
+*/
+/*
+.color-primary-0 { color: #54A4CF }	// Main Primary color
+.color-primary-1 { color: #AFDAF2 }
+.color-primary-2 { color: #7BBEE1 }
+.color-primary-3 { color: #348CBB }
+.color-primary-4 { color: #1573A5 }
+
+.color-complement-0 { color: #FFB65F }	// Main Complement color
+.color-complement-1 { color: #FFDDB5 }
+.color-complement-2 { color: #FFC785 }
+.color-complement-3 { color: #FFA73D }
+.color-complement-4 { color: #FF9414 }
+*/
+@CHARSET "UTF-8";
+footer {
+  padding: 1em;
+  text-align: center;
+  color: white;
+  background-color: #1573A5;
+}
+footer address {display: inline}

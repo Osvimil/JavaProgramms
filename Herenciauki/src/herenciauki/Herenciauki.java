@@ -1,21 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package herenciauki;
 
-/**
- *
- * @author oswaldosaldivar
- */
+
 public class Herenciauki {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
+        
         
         Alumno alumno = new Alumno();
         
@@ -30,6 +21,10 @@ public class Herenciauki {
         ipn.setNombre("oswaldo");
         ipn.setApellidos("peralta saldivar");
         ipn.setEdad(22);
+        
+        System.out.println("----------------");
+        
+        
         //ipn.getNombre();
         System.out.println(ipn.getMaterias());
         System.out.println(ipn.getBoleta());
@@ -45,14 +40,14 @@ public class Herenciauki {
         unam.setApellidos("de la loza");
         unam.setEdad(22);
         
+        System.out.println("-------------");
+       
+        
         System.out.println(unam.getFacultad());
         System.out.println(unam.getNombre());
         System.out.println(unam.getApellidos());
         System.out.println(unam.getEdad());
-        
-        
-        
-        
+     
     }
     
 }

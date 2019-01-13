@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<!--
+Copyright 2017 Ricardo Armando Machorro Reyes.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+  <cc:interface shortDescription=
+                "Barra de herramientas para las vistas de detalle.">
+    <cc:attribute name="título" required="true"  type="java.lang.String"
+                  shortDescription="Título de la barra de herramientas."/>
+    <cc:attribute name="actionGuardar" required="true"
+                  method-signature="java.lang.Object guarda()"
+                  shortDescription="Acción que se ejecuta al activar el
+                  botón."/>
+    <cc:attribute name="actionCancelar" required="true"
+                  method-signature="java.lang.Object cancela()"
+                  shortDescription="Acción que se ejecuta al activar el
+                  botón."/>
+    <cc:attribute name="actionEliminar" required="true"
+                  method-signature="java.lang.Object cancela()"
+                  shortDescription="Acción que se ejecuta al activar el
+                  botón."/>
+    <cc:attribute name="textoDeConfirmacion" required="true"
+                  type="java.lang.String"
+                  shortDescription="Texto para confirmar la eliminación."/>
+    <cc:attribute name="aviso" default="\\nNo podrás recuperar los datos."
+                  type="java.lang.String" shortDescription=
+                  "Aviso de que no se recuperan los datos eliminados."/>
+    <cc:attribute name="eliminarEsVisible" required="true"
+                  type="java.lang.Boolean" shortDescription=
+                  "Si el botón de eliminar es visible o no."/>
+  </cc:interface>
+  <cc:implementation>
+    <link jsf:name="css/herramientas.css"/>
+    <div id="#{cc.clientId}" class="herramientas">
+      <h:commandButton value="Cancelar" accesskey="C">
+        <f:ajax listener="#{cc.attrs.actionCancelar}" render="@all"/>
+      </h:commandButton>
+      <h:commandButton value="Eliminar" accesskey="E" onclick=
+                       "return confirm('#{cc.attrs.textoDeConfirmacion}'
+                               + '#{cc.attrs.aviso}');"
+                       rendered="#{cc.attrs.eliminarEsVisible}">
+        <f:ajax listener="#{cc.attrs.actionEliminar}" render="@all" />
+      </h:commandButton>
+      <h:commandButton value="Guardar" accesskey="G" styleClass="principal">
+        <f:ajax listener="#{cc.attrs.actionGuardar}" execute="@form"
+                render="@all" />
+      </h:commandButton>
+    </div>
+  </cc:implementation>
+</html>

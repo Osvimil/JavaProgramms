@@ -51,7 +51,7 @@ public class UnoaUno {
         final Empleado emp1 = new Empleado(1,"Oswaldo");
         final Empleado emp2 = new Empleado(2,"Alfonso");
         final Empleado emp3 = new Empleado(3,"Lupe");
-        final Empleado emp4 = new Empleado(4,"Paps");
+        final Empleado emp4 = new Empleado(4,"papas");
         
         final Cubiculo c1 = new Cubiculo(1, "Cubiculo oriente");
         final Cubiculo c2 = new Cubiculo(2, "Cubiculo sur");

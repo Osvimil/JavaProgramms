@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<!-- Copyright 2014 Ricardo Armando Machorro Reyes
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+  this file except in compliance with the License. You may obtain a copy of the
+  License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software distributed
+  under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+  CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+  language governing permissions and limitations under the License. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+  <cc:interface shortDescription="Listado que se adapta al tamaño de la página.">
+    <cc:attribute name="value" required="true" shortDescription="Datos que se
+                  recorren. Puede ser java.util.List, arreglo, java.sql.ResultSet o
+                  un java.lang.Object individual."/>
+    <cc:attribute name="styleClass" default="listado"
+                  shortDescription="Clase de estilo."/>
+    <cc:attribute name="mensajeCuandoEstaVacio" default="No hay datos registrados."
+                  type="java.lang.String"
+                  shortDescription="Mensaje cuando el listado no tiene elementos."/>
+    <cc:facet name="encabezados" required="false" shortDescription=
+              "Lista de span con los encabezados del listado"/>
+  </cc:interface>
+  <cc:implementation>
+    <div id="#{cc.clientId}" class="#{cc.attrs.styleClass}">
+      <div class="datos">
+        <div class="encabezado">
+          <cc:renderFacet name="encabezados"/>
+        </div>
+        <ui:repeat var="it" value="#{cc.attrs.value}">
+          <div class="renglon">
+            <cc:insertChildren/>
+          </div>
+        </ui:repeat>
+      </div>
+      <ui:fragment rendered="#{empty cc.attrs.value}">
+        <div class="vacio">
+          #{cc.attrs.mensajeCuandoEstaVacio}
+        </div>
+      </ui:fragment>
+    </div>
+  </cc:implementation>
+</html>

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<!-- Copyright 2014 Ricardo Armando Machorro Reyes
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+  this file except in compliance with the License. You may obtain a copy of the
+  License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software distributed
+  under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+  CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+  language governing permissions and limitations under the License. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+  <cc:interface shortDescription="Barra de herramientas estandarizada para invocar la
+                creación de un objeto.">
+    <cc:attribute name="value" default="Nuevo..." type="java.lang.String"
+                  shortDescription="Texto del botón nuevo."/>
+    <cc:attribute name="filtro" required="true" type="java.lang.String"
+                  shortDescription="Propiedad que se liga al filtro."/>
+    <cc:attribute name="action" required="true"
+                  method-signature="java.lang.Object cargaInstancias()"
+                  shortDescription="Mètodo que realiza el filtrado."/>
+    <cc:attribute name="size" default="20" type="java.lang.String"
+                  shortDescription="Longitud del campo de búsqueda."/>
+  </cc:interface>
+  <cc:implementation>
+    <div id="#{cc.clientId}" class="herramientas">
+      <input type="button" value="#{cc.attrs.value}" accesskey="N"
+             jsf:outcome="detalle"/>
+      <span style="display: inline-block">
+        <input type="search" autofocus="autofocus" size="#{cc.attrs.size}"
+               jsf:value="#{cc.attrs.filtro}"/>
+        <input type="submit" value="Buscar" accesskey="B"
+               jsf:action="#{cc.attrs.action}"/>
+      </span>
+      <cc:insertChildren/>
+    </div>
+  </cc:implementation>
+</html>

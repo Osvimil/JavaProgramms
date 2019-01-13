@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+  <ui:param name="título" value="Pizza"/>
+  <h:head>
+    <meta charset="UTF-8" />
+    <title>#{título}</title>
+    <meta name="viewport" content="width=device-width" />
+    <style>
+      section {
+        display: inline-block;
+        vertical-align: top
+      }
+    </style>
+  </h:head>
+  <h:body>
+    <h1>#{título}</h1>
+    <!-- Para usar un elemento faces, debe llevar al menos un atributo que
+    empiece con jsf: y que corresponda a un atributo del componente JSF. -->
+    <form jsf:prependId="true">
+        
+        <!--
+      <div>
+        <h:link value="Resumen de Bean Validation" accesskey="R"
+                outcome="beanvalidation"/>
+      </div>
+        -->
+      <section>
+        <div>
+          <h:commandButton value="Nuevo..." accesskey="N"
+                           action="#{ctrlPizza.inicia()}">
+            <f:ajax listener="#{ctrlPizza.inicia()}" render="@form"/>
+          </h:commandButton>
+        </div>
+        <ul>
+          <ui:repeat var="it" value="#{ctrlPizza.instancias}">
+            <li>
+              <h:commandLink value="#{it.nombre}">
+                <f:ajax listener="#{ctrlPizza.edita(it)}" render="@form"/>
+              </h:commandLink>
+            </li>
+          </ui:repeat>
+        </ul>
+      </section>
+      <section>
+        <div>
+          <!-- Al convertir los componentes a JSF, los atributos que no llevan
+          prefijo, no son usados por el componente y se paran idénticos a la
+          versión HTML final. -->
+          <h:commandButton value="Cancelar" accesskey="C">
+              <f:ajax listener="#{ctrlPizza.inicia()}" render="@form"/>
+          </h:commandButton>
+          <h:commandButton type="submit" value="Guardar" accesskey="G">
+            <f:ajax listener="#{ctrlPizza.guarda()}"
+                    execute="@form" render="@form"/>
+          </h:commandButton>
+          <h:commandButton type="submit" value="Eliminar" accesskey="E">
+            <f:ajax listener="#{ctrlPizza.elimina()}" render="@form"/>
+          </h:commandButton>
+          <h:messages globalOnly="true"/>
+        </div>
+        <p>
+          <!-- Para enlazar el input con el h:message, hay que usar jsf:id. -->
+          <input jsf:id="nombre" type="text" accesskey="N" placeholder="Nombre"
+                 autofocus="autofocus"
+                 jsf:value="#{ctrlPizza.modelo.nombre}"/>
+          <h:message for="nombre"/>
+        </p>
+        <p>
+          <input jsf:id="telefono" type="text" accesskey="T"
+                 placeholder="Teléfono"
+                 jsf:value="#{ctrlPizza.modelo.telefono}"/>
+          <h:message for="telefono"/>
+        </p>
+      </section>
+    </form>
+    <footer>
+      UPIICSA IPN
+    </footer>
+  </h:body>
+</html>
+

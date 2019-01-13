@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:rnjsf="http://xmlns.jcp.org/jsf/composite/rnjsf">
+  <body>
+    <ui:composition template="/WEB-INF/plantillas/plantilla.xhtml">
+      <ui:param name="modelo" value="#{ctrlEmpleado.modelo}"/>
+      <ui:param name="título"
+                value="#{ctrlEmpleado.nuevo ? 'Nuevo Empleado' : modelo.rfc}"/>
+      <ui:define name="contenido">
+        <link jsf:library="rnjsf" jsf:name="css/detalle.css"/>
+        <form jsf:prependId="false">
+          <rnjsf:herramientasDetalle action="#{ctrlEmpleado.guarda()}"/>
+          <rnjsf:mensajes/>
+          <rnjsf:indicaCamposObligatorios/>
+          <ui:param name="lblRfc" value="RFC"/>
+          <rnjsf:campo id="rfc" label="#{lblRfc}" accesskey="R">
+            <input jsf:id="v" type="text" jsf:label="#{lblRfc}" autofocus="autofocus"
+                   required="required"
+                   pattern="[A-Z]{4}\d{2}([0]\d|[1][0-2])([0-2]\d|[3][01])[A-Z]\d{2}"
+                   maxlength="13" size="16" placeholder="LLLLaammddL##"
+                   jsf:value="#{modelo.rfc}"/>
+          </rnjsf:campo>
+          <ui:param name="lblNombre" value="Nombre"/>
+          <rnjsf:campo id="nombre" label="#{lblNombre}" accesskey="N">
+            <input jsf:id="v" type="text" jsf:label="#{lblNombre}"
+                   required="required" pattern=".{1,255}" maxlength="255" size="20"
+                   placeholder="1 a 255 caracteres" jsf:value="#{modelo.nombre}"/>
+          </rnjsf:campo>
+          <!-- Para manejar la llave foránea usa un selectOne del tipo que prefieras y
+          que te permita seleccionar una entidad. Le tienes que agregar un converter
+          para que pueda manejar el tipo de entidad que utilices. -->
+          <ui:param name="lblComputadora" value="Computadora"/>
+          <rnjsf:campo id="computadora" label="#{lblComputadora}" accesskey="O">
+            <select jsf:id="v" jsf:label="#{lblComputadora}"
+                    size="1" jsf:value="#{modelo.computadora}">
+              <!-- Un converter permite transformar el atributo value de HTML en un
+              objeto del tipo deseado. -->
+              <f:converter binding="#{convertidorDeComputadora}"/>
+              <!-- Etiqueta cuando la computadora es nula. -->
+              <f:selectItem itemLabel="-- Sin Computadora --"
+                            noSelectionOption="true"/>
+              <!-- Llena el select con computadoras. El texto de la opción se toma del
+              método Computadora.toString() -->
+              <f:selectItems value="#{ctrlComputadoras.instancias}"/>
+            </select>
+          </rnjsf:campo>
+        </form>
+      </ui:define>
+    </ui:composition>
+  </body>
+</html>

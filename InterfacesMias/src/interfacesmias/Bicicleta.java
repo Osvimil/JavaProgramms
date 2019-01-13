@@ -11,7 +11,8 @@ package interfacesmias;
  */
 public class Bicicleta implements Rueda,Asientos {
     
-    Bicicleta(){}
+    public Bicicleta(){
+    }
 
     @Override
     public void avanzar() {

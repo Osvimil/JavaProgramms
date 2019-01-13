@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE glassfish-web-app PUBLIC
+ "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN"
+ "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
+<!--
+Copyright 2017 Ricardo Armando Machorro Reyes.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<glassfish-web-app error-url="">
+  <!-- La url de la aplicación está en la raíz del servidor. -->
+  <context-root>/</context-root>
+  <!-- Se asocian roles con grupos.
+  Un rol es un grupo de usuarios de la aplicación con ciertos derechos de acceso
+  y uso de los recursos de la aplicación.
+  Un grupo es un conjunto de usuarios registrados en el servidor. En este caso
+  se usa una tabla de usuarios en relación muchos a muchos con una tabla de
+  grupos. -->
+  <security-role-mapping>
+    <!-- Elegimos que el nombre de los roles coincida con los nombres de grupos,
+    pero no siempre es así. -->
+    <role-name>Administrador</role-name>
+    <group-name>Administrador</group-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>Cliente</role-name>
+    <group-name>Cliente</group-name>
+  </security-role-mapping>
+  <class-loader delegate="true"/>
+  <jsp-config>
+    <property name="keepgenerated" value="true">
+      <description>
+        Guarda una copia del código de las clases Java de los servlets
+        generados.
+      </description>
+    </property>
+  </jsp-config>
+  <!-- Los datos intercambiados entre los navegadores web y el servidor se
+  codifican en UTF-8.  -->
+  <parameter-encoding default-charset="UTF-8"/>
+</glassfish-web-app>

@@ -1,25 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package abstractclass;
 
-/**
- *
- * @author oswaldosaldivar
- */
-public class Perro extends Animal {
+public class Perro extends Animal{
     
     public Perro(){
         super();
-        setNombre("Perro");
+        setNombre("Snnopy");
+    }
+
+    @Override
+    public void moverse() {
+        System.out.println("Yo perro camino en cuatro patas");
+    }
+    
+}
+
+
+/*
+public class Perro extends Animal {
+    
+    /*public Perro(){
+    super(); //ejecuta codigo del constructor padre
+    setNombre("Perro");
     }
     
     
     @Override
     public void moverse(){
-        System.out.println("Camino en cuatro patas");
-    }
+    System.out.println("Camino en cuatro patas");
+    }*/
     
+/*   public Perro(){
+super();
+setNombre("Snoopy");
 }
+@Override
+public void moverse(){
+System.out.println("Soy un perro, camino en 4 patas");
+}
+
+}*/

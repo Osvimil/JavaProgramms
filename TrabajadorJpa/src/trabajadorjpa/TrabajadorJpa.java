@@ -73,7 +73,7 @@ public class TrabajadorJpa {
     public static void main(String[] args) {
         
         try {
-            Worker oswaldo = agregar(1, "Oswaldo Peralta", "12903478", "09/04/1940");
+            Worker oswaldo = agregar(1, "Oswaldonn Peralta", "12903478", "09/04/1940");
             Worker alfonso = agregar(2,"Alfonsos Peralta","12903487","24/01/1959");
             Worker lupe = agregar(3,"Lupe Zaldivar","09218743","12/12/1982");
             

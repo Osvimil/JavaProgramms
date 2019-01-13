@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+  <body>
+    <ui:composition template="/WEB-INF/plantillas/plantilla.xhtml">
+      <ui:param name="titulo" value="Inicio"/>
+      <ui:define name="head">
+        <!-- Configuración para el ícono de acceso directo en Chrome. -->
+        <meta name="mobile-web-app-capable" content="yes"/>
+        <link rel="manifest" href="#{resource['manifest.json']}"/>
+        <link rel="icon" sizes="192x192"
+              href="#{resource['img/ic_launcher_192px.png']}"/>
+
+        <!-- Configuración para el ícono de acceso directo en Safari. -->
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <meta name="apple-mobile-web-app-title" content="Compro"/>
+        <link rel="apple-touch-icon" sizes="144x144"
+              href="#{resource['img/ic_launcher_144px.png']}"/>
+        <link rel="apple-touch-icon-precomposed" sizes="144x144"
+              href="#{resource['img/ic_launcher_144px.png']}"/>
+
+        <!-- Configuración para el ícono de acceso directo en Win8
+        (144x144 + tile color) -->
+        <meta name="msapplication-TileImage"
+              content="#{resource['img/ic_launcher_144px.png']}"/>
+      </ui:define>
+      <ui:define name="main">
+        <p class="imagen">
+          <img alt="Compro" jsf:name="img/shopping-basket-full256.png"/>
+        </p>
+        <div class="columnas">
+          <div class="crece">
+            <p>Aquí debe ir lo principal de tu página.</p>
+          </div>
+          <aside>
+            <nav>
+              <h1>Enlaces</h1>
+              <ul>
+                <li><a href="http://goo.gl/0RAuhF">Mi Sitio</a></li>
+                <li><a href="http://java.com">Java</a></li>
+                <li>
+                  <a href="http://java.oracle.com">Java (Desarrolladores)</a>
+                </li>
+              </ul>
+            </nav>
+          </aside>
+        </div>
+      </ui:define>
+    </ui:composition>
+  </body>
+</html>

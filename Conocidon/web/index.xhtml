@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:param name="titulo" value="Conocido"/>
+    <h:head>
+        <meta charset="UTF-8"/>
+        <title>#{titulo}</title>
+        <meta name="viewport" content="width=device-width"/>
+            <style>
+                section{
+                    display:inline-block;
+                vertical-align:center;
+                }
+                
+            </style>
+    </h:head>
+    <h:body>
+        <h1>#{titulo}</h1>
+        
+        <form jsf:preprendId="true">
+            <section>
+                <div>
+                    <h:commandButton value="Nuevo" accesskey="N" action="#{CtrlConocido.inicia()}">
+                    <f:ajax listener="#{CtrlConocido.inicia()}" render="@form"/>
+                    </h:commandButton>
+                </div>
+                <ul>
+                    <ui:repeat var="it" value="#{CtrlConocido.instancias}">
+            <li>
+              <h:commandLink value="#{it.nombre}">
+                <f:ajax listener="#{CtrlConocido.edita(it)}" render="@form"/>
+              </h:commandLink>
+            </li>
+          </ui:repeat>
+                </ul>
+            </section>
+            <section>
+        <div>
+          <!-- Al convertir los componentes a JSF, los atributos que no llevan
+          prefijo, no son usados por el componente y se paran idénticos a la
+          versión HTML final. -->
+          <h:commandButton value="Cancelar" accesskey="C">
+              <f:ajax listener="#{CtrlConocido.inicia()}" render="@form"/>
+          </h:commandButton>
+          <h:commandButton type="submit" value="Guardar" accesskey="G">
+            <f:ajax listener="#{CtrlConocido.guarda()}"
+                    execute="@form" render="@form"/>
+          </h:commandButton>
+          <h:commandButton type="submit" value="Eliminar" accesskey="E">
+            <f:ajax listener="#{CtrlConocido.elimina()}" render="@form"/>
+          </h:commandButton>
+          <h:messages globalOnly="true"/>
+        </div>
+        <p>
+          <!-- Para enlazar el input con el h:message, hay que usar jsf:id. -->
+          <input jsf:id="nombre" type="text" accesskey="N" placeholder="Nombre"
+                 autofocus="autofocus"
+                 jsf:value="#{CtrlConocido.modelo.nombre}"/>
+          <h:message for="nombre"/>
+        </p>
+        <p>
+          <input jsf:id="telefono" type="text" accesskey="T"
+                 placeholder="Teléfono"
+                 jsf:value="#{CtrlConocido.modelo.telefono}"/>
+          <h:message for="telefono"/>
+        </p>
+      </section>
+            
+            
+            
+        </form>
+       
+    </h:body>
+</html>
+

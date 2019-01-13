@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+  <cc:interface shortDescription="Selecciona una opción.">
+    <cc:attribute name="value" required="true"
+                  shortDescription="Objeto seleccionado."/>
+    <cc:attribute name="legend" required="true" type="java.lang.String"
+                  shortDescription="Texto de la leyenda."/>
+    <cc:attribute name="ayuda" required="false" type="java.lang.String"
+                  shortDescription="Texto de ayuda."/>
+    <cc:attribute name="filtro" required="true"
+                  shortDescription="Valor del filtro."/>
+    <cc:attribute name="lista" required="true" shortDescription="Datos que se
+                  recorren. Puede ser java.util.List, arreglo,
+                  java.sql.ResultSet o un java.lang.Object individual."/>
+    <cc:attribute name="actionFiltro" required="true"
+                  method-signature="java.lang.Object filtra()"
+                  shortDescription="Acción que se ejecuta al activar el filtro."/>
+    <cc:attribute name="actionDetalle" required="true"
+                  method-signature="java.lang.Object detalle(java.lang.Object)"
+                  shortDescription="Acción que se ejecuta al seleccionar."/>
+    <cc:attribute name="mensajeCuandoEstaVacio" type="java.lang.String"
+                  default="No hay opciones registradas."
+                  shortDescription=
+                  "Mensaje cuando el listado no tiene elementos."/>
+    <cc:attribute name="imagenId" required="false"
+                  shortDescription="Id de la imagen."/>
+    <cc:attribute name="texto1" required="true"
+                  shortDescription="Texto principal."/>
+    <cc:attribute name="texto2" required="false"
+                  shortDescription="Texto secundario."/>
+  </cc:interface>
+  <cc:implementation>
+    <link jsf:name="css/selecciona.css"/>
+    <fieldset id="#{cc.clientId}" class="selecciona">
+      <legend>#{cc.attrs.legend}</legend>
+      <h:outputText value="#{cc.attrs.ayuda}" styleClass="ayuda"
+                    rendered="#{!empty cc.attrs.ayuda}"/>
+      <h:message for="v" errorClass="error"/>
+      <ui:param name="it" value="#{cc.attrs.value}"/>
+      <div class="seleccion"> 
+        <ui:repeat var="it" value="#{[ cc.attrs.value ]}"
+                   rendered="#{not empty cc.attrs.value}">
+          <h:panelGroup styleClass="imagen" rendered="#{!empty cc.attrs.imagenId}">
+            <img alt="imagen" src="../ctrlArchivo/#{cc.attrs.imagenId}"/>
+          </h:panelGroup>
+          <div class="textos">
+            <div class="texto1">#{cc.attrs.texto1}</div>
+            <h:outputText value="#{cc.attrs.texto2}" styleClass="texto2"
+                          rendered="#{!empty cc.attrs.texto2}"/>
+          </div>
+        </ui:repeat>
+        <ezcomp:selector/>
+      </div>
+      <div class="filtro">
+        <div class="herramientas">
+          <input jsf:id="filtro" type="search" jsf:value="#{cc.attrs.filtro}">
+            <f:ajax listener="#{cc.attrs.actionFiltro}" render="lista"/>
+          </input>
+          <h:commandButton value="Buscar" accesskey="B">
+            <f:ajax execute="filtro" render="lista"
+                    listener="#{cc.attrs.actionFiltro}"/>
+          </h:commandButton>
+        </div>
+        <h:panelGroup id="lista">
+          <ul>
+            <ui:fragment rendered="#{empty cc.attrs.lista}">
+              <li class="vacio">#{cc.attrs.mensajeCuandoEstaVacio}</li>
+            </ui:fragment>
+            <ui:repeat var="it" value="#{cc.attrs.lista}"
+                       rendered="#{not empty cc.attrs.lista}">
+              <li>
+                <h:commandLink styleClass="imagen"
+                               rendered="#{!empty cc.attrs.imagenId}">
+                  <f:ajax listener="#{cc.attrs.actionDetalle}"
+                          render="#{cc.clientId}" />
+                  <img alt="imagen" src="../ctrlArchivo/#{cc.attrs.imagenId}"/>
+                </h:commandLink>
+                <div class="textos">
+                  <h:commandLink value="#{cc.attrs.texto1}" styleClass="texto1">
+                    <f:ajax listener="#{cc.attrs.actionDetalle}"
+                            render="#{cc.clientId}" />
+                  </h:commandLink>
+                  <h:outputText value="#{cc.attrs.texto2}" styleClass="texto2"
+                                rendered="#{!empty cc.attrs.texto2}"/>
+                </div>
+              </li>
+            </ui:repeat>
+          </ul>
+        </h:panelGroup>
+      </div>
+    </fieldset>
+  </cc:implementation>
+</html>

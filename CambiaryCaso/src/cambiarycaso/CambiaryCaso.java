@@ -12,22 +12,38 @@ public class CambiaryCaso {
     
     public static void main(String[] args) {
         
+        
         Scanner sc = new Scanner(System.in);
+        int nip = 2000;
+       
+        
+        do{
+             System.out.println("Ingresa tu nip para retirar dinero");
+             nip = sc.nextInt();
+             
+             if(nip == 2000){
+                 System.out.println("Bienvenido al banco");
+             }else{
+                 System.out.println("Ingresa de nuevo");
+             }       
+        }while(nip !=2000);
+        
+        /*Scanner sc = new Scanner(System.in);
         int numero=2056;
         System.out.println("Ingresa NIP: ");
         numero = sc.nextInt();
         
         switch(numero){
         
-            case 2056:
-                System.out.println("Bienvenido al cajero: ");
-                break;
-            case 2000:
-                System.out.println("Incorrecto");
-                break;
-            default:
-                System.out.println("BANCO BILBAO DEL NORTE DE JAMAICA");       
-    }
+        case 2056:
+        System.out.println("Bienvenido al cajero: ");
+        break;
+        case 2000:
+        System.out.println("Incorrecto");
+        break;
+        default:
+        System.out.println("BANCO BILBAO DEL NORTE DE JAMAICA");
+        }*/
         
        
         

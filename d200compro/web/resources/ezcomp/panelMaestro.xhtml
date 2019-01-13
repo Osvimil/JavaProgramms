@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<!--
+Copyright 2017 Ricardo Armando Machorro Reyes.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://java.sun.com/jsf/composite"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+  <cc:interface shortDescription="Vista maestra común.">
+    <cc:attribute name="value" required="true" shortDescription="Datos que se
+                  recorren. Puede ser java.util.List, arreglo,
+                  java.sql.ResultSet o un java.lang.Object individual."/>
+    <cc:attribute name="filtro" required="true"
+                  shortDescription="Valor del filtro."/>
+    <cc:attribute name="action" required="true"
+                  method-signature="java.lang.Object agrega()"
+                  shortDescription="Acción que se ejecuta al activar el botón
+                  agregar."/>
+    <cc:attribute name="actionFiltro" required="true"
+                  method-signature="java.lang.Object filtra()"
+                  shortDescription="Acción que se ejecuta al activar el filtro."/>
+    <cc:attribute name="actionDetalle" required="true"
+                  method-signature="java.lang.Object detalle(java.lang.Object)"
+                  shortDescription="Acción que se ejecuta al seleccionar."/>
+    <cc:attribute name="mensajeCuandoEstaVacio" type="java.lang.String"
+                  default="No hay datos registrados."
+                  shortDescription=
+                  "Mensaje cuando el listado no tiene elementos."/>
+    <cc:attribute name="imagenId" required="false"
+                  shortDescription="Id de la imagen."/>
+    <cc:attribute name="texto1" required="true"
+                  shortDescription="Texto principal."/>
+    <cc:attribute name="texto2" required="false"
+                  shortDescription="Texto secundario."/>
+  </cc:interface>
+  <cc:implementation>
+    <div id="#{cc.clientId}">
+      <ezcomp:herramientasMaestras action="#{cc.attrs.action}"
+                                   filtro="#{cc.attrs.filtro}"
+                                   actionFiltro="#{cc.attrs.actionFiltro}"/>
+      <ezcomp:mensajes/>
+      <ezcomp:lista value="#{cc.attrs.value}"
+                    actionDetalle="#{cc.attrs.actionDetalle}"
+                    mensajeCuandoEstaVacio="#{cc.attrs.mensajeCuandoEstaVacio}"
+                    imagenId="#{cc.attrs.imagenId}" texto1="#{cc.attrs.texto1}"
+                    texto2="#{cc.attrs.texto2}"/>
+    </div>
+  </cc:implementation>
+</html>

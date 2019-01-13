@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--
+Copyright 2017 Ricardo Armando Machorro Reyes.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+  <body>
+    <ui:composition template="/WEB-INF/plantillas/plantilla.xhtml">
+      <ui:param name="titulo" value="#{ctrlProductos.titulo}"/>
+      <ui:define name="main">
+        <script jsf:name="js/recuperaImagen.js"/>
+        <ezcomp:panelMaestro  value="#{ctrlProductos.lista}"
+                              filtro="#{ctrlProductos.filtro}"
+                              actionFiltro="#{ctrlProductos.inicia()}"
+                              action="#{ctrlProductos.agrega()}"
+                              actionDetalle="#{ctrlProductos.detalle(it)}"
+                              imagenId="#{it.imagen.id}"
+                              texto1="#{it.nombre}"
+                              texto2="#{ctrlProductos.precioFormateado(it)}"
+                              rendered="#{ctrlProductos.muestraMaestro}"/>
+        <h:panelGroup rendered="#{ctrlProductos.muestraDetalle}">
+          <ezcomp:herramientasDetalle título="#{ctrlProductos.titulo}"
+                                      actionGuardar="#{ctrlProductos.guarda()}"
+                                      actionCancelar="#{ctrlProductos.inicia()}"
+                                      actionEliminar="#{ctrlProductos.elimina()}"
+                                      eliminarEsVisible="#{!ctrlProductos.nuevo}"
+                                      textoDeConfirmacion=
+                                      "Confirma eliminar a #{ctrlProductos.modelo.nombre}"/>
+          <ezcomp:mensajes/>
+          <div class="columnas">
+            <div class="imagen crece">
+              <img jsf:id="img" alt="Falta seleccionar imagen"
+                   jsf:value="#{ctrlProductos.imagenUrl}"/>
+            </div>
+            <div>
+              <ezcomp:campo id="imagen" label="Imagen" accesskey="I"
+                            obligatorio="false">
+                <ezcomp:selector/>
+                <input jsf:id="file" type="file"
+                       jsf:value="#{ctrlProductos.imagen}"
+                       onchange="recuperaImagen(this, 'img')"/>
+              </ezcomp:campo>
+              <ezcomp:campo id="nombre" label="Nombre" accesskey="N">
+                <input jsf:id="v" type="text"
+                       jsf:value="#{ctrlProductos.modelo.nombre}"/>
+              </ezcomp:campo>
+              <ezcomp:seleccionaUno id="categoria" legend="Categoría"
+                                    value="#{ctrlProductos.modelo.categoria}"
+                                    filtro="#{ctrlCategorias.filtro}"
+                                    lista="#{ctrlCategorias.lista}"
+                                    actionFiltro="#{ctrlCategorias.inicia()}"
+                                    actionDetalle="#{ctrlProductos.modelo.setCategoria(it)}"
+                                    texto1="#{it.nombre}"/>
+              <ezcomp:campo id="precio" label="Precio" accesskey="P"
+                            ayuda="(MN) 6 dígitos enteros y 2 decimales">
+                <input jsf:id="v" type="number" step="0.01"
+                       jsf:value="#{ctrlProductos.precio}"/>
+              </ezcomp:campo>
+              <ezcomp:campo id="existencias"
+                            label="Existencias" accesskey="X">
+                <input jsf:id="v" type="number"
+                       jsf:value="#{ctrlProductos.existencias}"/>
+              </ezcomp:campo>
+            </div>
+          </div>
+        </h:panelGroup>
+      </ui:define>
+    </ui:composition>
+  </body>
+</html>

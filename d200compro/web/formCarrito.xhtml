@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!--
+Copyright 2017 Ricardo Armando Machorro Reyes.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+  <body>
+    <ui:composition template="/WEB-INF/plantillas/plantilla.xhtml">
+      <ui:param name="titulo" value="#{ctrlCarrito.titulo}"/>
+      <ui:define name="main">
+        <link jsf:name="css/herramientas.css"/>
+        <h:panelGroup rendered="#{ctrlCarrito.muestraMaestro}">
+          <div class="herramientas">
+            <h:commandButton value="Guardar" accesskey="G">
+              <f:ajax execute="@form" render="@all"
+                      listener="#{ctrlCarrito.guardaVenta()}"/>
+            </h:commandButton>
+            <h:commandButton value="Pagar" accesskey="P" styleClass="principal">
+              <f:ajax execute="@form" render="@all"
+                      listener="#{ctrlCarrito.registra()}"/>
+            </h:commandButton>
+          </div>
+          <ezcomp:mensajes/>
+          <label class="campo">
+            <span class="label">Total</span>
+            <span class="componente">$#{ctrlCarrito.total}</span>
+          </label>
+          <ezcomp:campo id="fechaHoraDeEntrega"
+                        label="Fecha y Hora de Entrega" accesskey="F"
+                        obligatorio="false">
+            <input jsf:id="v" type="datetime-local"
+                   jsf:value="#{ctrlCarrito.fechaHoraDeEntrega}"
+                   placeholder="aaaa-mm-dd hh:mm"/>
+          </ezcomp:campo>
+          <ezcomp:campo id="direccionDeEntrega"
+                        label="Dirección de Entrega" accesskey="D"
+                        obligatorio="false">
+            <textarea jsf:id="v" rows="4"
+                      jsf:value="#{ctrlCarrito.venta.direccionDeEntrega}"/>
+          </ezcomp:campo>
+          <ezcomp:lista value="#{ctrlCarrito.lista}"
+                        actionDetalle="#{ctrlCarrito.detalle(it)}"
+                        imagenId="#{it.producto.imagen.id}"
+                        texto1="#{it.producto.nombre}"
+                        texto2="#{ctrlCarrito.subtotal(it)}"/>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{ctrlCarrito.muestraDetalle}">
+          <ezcomp:herramientasDetalle título="#{ctrlCarrito.titulo}"
+                                      actionGuardar="#{ctrlCarrito.guarda()}"
+                                      actionCancelar="#{ctrlCarrito.inicia()}"
+                                      actionEliminar="#{ctrlCarrito.cancelaProducto()}"
+                                      eliminarEsVisible="#{!ctrlCarrito.nuevo}"
+                                      textoDeConfirmacion=
+                                      "Confirma cancelar #{ctrlCarrito.modelo.producto.nombre}"/>
+          <ezcomp:mensajes/>
+          <div class="columnas">
+            <div class="imagen crece">
+              <img jsf:id="img" alt="Imagen"
+                   jsf:value="#{ctrlCarrito.imagenUrl}"/>
+            </div>
+            <div>
+              <dl>
+                <dt>Nombre</dt>
+                <dd>#{ctrlCarrito.modelo.producto.nombre}</dd>
+                <dt>Categoría</dt>
+                <dd>#{ctrlCarrito.modelo.producto.categoria.nombre}</dd>
+                <dt>Precio (MN)</dt>
+                <dd>#{ctrlCarrito.precio}</dd>
+              </dl>
+              <ezcomp:campo id="cantidad" label="Cantidad" accesskey="A">
+                <input jsf:id="v" type="number"
+                       jsf:value="#{ctrlCarrito.cantidad}"/>
+              </ezcomp:campo>
+            </div>
+          </div>
+        </h:panelGroup>
+      </ui:define>
+    </ui:composition>
+  </body>
+</html>

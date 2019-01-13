@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+Copyright 2017 Ricardo Armando Machorro Reyes.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:jsf="http://xmlns.jcp.org/jsf">
+  <body>
+    <ui:composition template="/WEB-INF/plantillas/plantilla.xhtml">
+      <ui:param name="titulo" value="#{ctrlProductosCliente.titulo}"/>
+      <ui:define name="main">
+        <link jsf:name="css/herramientas.css"/>
+        <h:panelGroup rendered="#{ctrlProductosCliente.muestraMaestro}">
+          <div class="herramientas">
+            <ezcomp:filtro value="#{ctrlProductosCliente.filtro}"
+                           action="#{ctrlProductosCliente.inicia()}"/>
+          </div>
+          <ezcomp:mensajes/>
+          <ezcomp:lista id="lista"
+                        value="#{ctrlProductosCliente.lista}"
+                        actionDetalle="#{ctrlProductosCliente.detalle(it)}"
+                        imagenId="#{it.imagen.id}"
+                        texto1="#{it.nombre}"
+                        texto2="#{ctrlProductosCliente.precioFormateado(it)}"/>
+        </h:panelGroup>
+        <h:panelGroup rendered="#{ctrlProductosCliente.muestraDetalle}">
+          <div class="herramientas">
+            <h:commandButton value="Cancelar" accesskey="C">
+              <f:ajax listener="#{ctrlProductosCliente.inicia()}" render="@all"/>
+            </h:commandButton>
+            <h:commandButton value="Comprar" accesskey="O"
+                             styleClass="principal">
+              <f:ajax listener="#{ctrlProductosCliente.compra()}"
+                      render="@all"/>
+            </h:commandButton>
+          </div>
+          <ezcomp:mensajes/>
+          <div class="columnas">
+            <div class="imagen crece">
+              <img jsf:id="img" alt="#{ctrlProductosCliente.nombre}"
+                   jsf:value="#{ctrlProductosCliente.imagenUrl}"/>
+            </div>
+            <dl>
+              <dt>Nombre</dt>
+              <dd>#{ctrlProductosCliente.nombre}</dd>
+              <dt>Categoría</dt>
+              <dd>#{ctrlProductosCliente.categoria}</dd>
+              <dt>Precio (MN)</dt>
+              <dd>#{ctrlProductosCliente.precio}</dd>
+            </dl>
+          </div>
+        </h:panelGroup>
+      </ui:define>
+    </ui:composition>
+  </body>
+</html>

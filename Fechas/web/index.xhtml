@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:param name="título" value="Fechas"/>
+    <head jsf:id="head">
+        <meta charset="UTF-8"/>
+        <title>#{título}</title>
+        <meta name="viewport" content="width=device-width"/>
+        <link jsf:name="css/estilos.css"/>
+        <!-- Añade un script a la sección head de la página. -->
+        <script jsf:name="js/corrigeFechas.js" jsf:target="head"/>
+    </head>    
+    <body jsf:id="body">
+        <header>            
+            <h1>
+              Fechas
+            </h1>
+        </header>
+        <div class="mensajes">
+            <h:messages globalOnly="true" layout="table" infoClass="info"
+                        errorClass="error"/>
+        </div>
+        <p><em>El borde azul indica obligatorio.</em></p>
+        <form jsf:prependId="false">
+            <p  class="campo" >
+                <label>
+                    Fecha y Hora del Servidor
+                </label>
+                <h:outputText value="#{cFechas.fechaDelServidor}">
+                    <!-- Formato de fecha con hora.
+                    También se puede usar dentro de h:inputText.
+                    type="both": se muestra fecha y hora.
+                    dateStyle="short": fecha en un formato corto. Las alternativas son: 
+                                       "default", "short", "medium", "long" y "full".
+                    timeStyle="default": hora en estilo predeterminado. Las alternativas
+                                         son: "default", "short", "medium", "long" y "full".
+                    locale="es-MX": el formato utiliza las definiciones para el español de
+                                    México.
+                    timeZone="America/Mexico_City": las horas corresponden al uso horario de
+                                                    la ciudad de méxico. -->
+                    <f:convertDateTime type="both" dateStyle="short" timeStyle="default"
+                                       locale="es-MX" timeZone="America/Mexico_City"/>
+                </h:outputText>
+
+            </p>
+            <p class="campo">
+                <label>
+                    Solo Fecha
+                </label>
+                <h:outputText value="#{cFechas.fechaDelServidor}">
+                    <!-- Formato solo fecha. type="date": se muestra solo la fecha. -->
+                    <f:convertDateTime type="date" dateStyle="medium" locale="es-MX"
+                                       timeZone="America/Mexico_City"/>
+                </h:outputText>
+
+            </p>
+            
+            <p class="campo">
+                <label>
+                    Solo Hora
+                </label>
+                <h:outputText value="#{cFechas.fechaDelServidor}">
+                    <!-- Formato solo hora. type="time": se muestra solo la hora. -->
+                    <f:convertDateTime type="time" timeStyle="full" locale="es-MX"
+                                       timeZone="America/Mexico_City"/>
+                </h:outputText>
+            </p>
+            
+            <ui:param name="lblFechaPasado" value="Fecha del Pasado"/>
+            <p class="campo">
+                <label  for="FechaPasado" label="#{lblFechaPasado}"
+                       accesskey="P">
+                    #{lblFechaPasado}
+                </label>
+                <input jsf:id="FechaPasado" type="text" jsf:label="#{lblFechaPasado}"
+                       autofocus="autofocus" required="required" placeholder="día/mes/año"
+                       pattern="[0-3]\d/[01]\d/\d{4}" maxlength="10" size="13"
+                       jsf:value="#{cFechas.FechaPasado}">
+                    <f:convertDateTime type="time" pattern="dd/MM/yyyy" locale="es-MX"
+                                       timeZone="America/Mexico_City"/>
+                </input>
+                <br />
+                <h:message for="FechaPasado" errorClass="error" infoClass="info"/>
+            </p>
+            <ui:param name="lblfechaFuturo" value="Fecha del Futuro"/>
+            <p class="campo">
+                <label for="fechaFuturo" label="#{lblfechaFuturo}"
+                       accesskey="F" >
+                    #{lblfechaFuturo}
+                </label>
+                <input jsf:id="fechaFuturo" type="date" jsf:label="#{lblfechaFuturo}"
+                       required="required" min="#{cFechas.fechaHtml5DelServidor}"
+                       jsf:value="#{cFechas.fechaFuturo}">
+                    <f:convertDateTime type="time" pattern="yyyy-MM-dd" locale="es-MX"
+                                       timeZone="America/Mexico_City"/>
+                </input>
+                <br /><em>año-mes-día (ej. 2014-12-30)</em>
+                <br /><h:message for="fechaFuturo" errorClass="error" infoClass="info"/>
+            </p>
+            <ui:param name="lblHora" value="Hora"/>
+            <p class="campo">
+                <label for="hora" label="#{lblHora}" accesskey="H">
+                    #{lblHora}
+                </label>
+                <input jsf:id="hora" type="time" jsf:label="#{lblHora}" required="required"
+                       jsf:value="#{cFechas.hora}">
+                    <f:convertDateTime type="time" pattern="HH:mm" locale="es-MX"
+                                       timeZone="America/Mexico_City"/>
+                </input>
+                <br /><em>horas:minutos (ej. 20:58)</em>
+                <br /><h:message for="hora" errorClass="error" infoClass="info"/>
+            </p>
+            <ui:param name="lblFechaYHora" value="Fecha y Hora"/>
+            <p class="campo">
+                <label for="fechaYHora" label="#{lblFechaYHora}" accesskey="Y">
+                    #{lblFechaYHora}
+                </label>
+                <!-- No funciona bien en Firefox Mobile. -->
+                <input jsf:id="fechaYHora" type="datetime" jsf:label="#{lblFechaYHora}"
+                       required="required" onchange="corrigeFechas(this);"
+                       jsf:value="#{cFechas.fechaYHora}">
+                    <f:convertDateTime type="time" pattern="yyyy-MM-dd'T'HH:mmXXX"
+                                       locale="es-MX" timeZone="America/Mexico_City"/>
+                </input>
+                <br /><em>año-mes-díaThoras:minutosZonaHoraria</em>
+                <br /><em>(ej. 2014-02-24T18:30-06:00) </em>
+                <br /><h:message for="fechaYHora" errorClass="error" infoClass="info"/>
+            </p>  
+            <ui:param name="lblFechaYHoraLocal" value="Fecha y Hora Local"/>
+            <p class="campo">
+                <label for="fechaYHoraLocal" label="#{lblFechaYHoraLocal}"
+                       accesskey="L">
+                    #{lblFechaYHoraLocal}
+                </label>
+                <!-- No funciona bien en Firefox Mobile. -->
+                <input jsf:id="fechaYHoraLocal" type="datetime-local" jsf:label="#{lblFechaYHoraLocal}"
+                       required="required" onchange="corrigeFechas(this);"
+                       jsf:value="#{cFechas.fechaYHoraLocal}">
+                    <f:convertDateTime type="time" pattern="yyyy-MM-dd'T'HH:mm"
+                                       locale="es-MX" timeZone="America/Mexico_City"/>
+                </input>
+                <br /><em>año-mes-díaThoras:minutos</em>
+                <br /><em>(ej. 2014-02-24T18:30)</em>
+                <br /><h:message for="fechaYHoraLocal" errorClass="error" infoClass="info"/>
+            </p>  
+            <ui:param name="lblSemana" value="Semana"/>
+            <p class="campo">
+                <label for="semana" label="#{lblSemana}" accesskey="S">
+                    #{lblSemana}
+                </label>
+                <input jsf:id="semana" type="week" jsf:label="#{lblSemana}" required="required"
+                       jsf:value="#{cFechas.semana}"/>
+                <br /><em>año-Wsemana (ej. 2014-W01)</em>
+                <br /><h:message for="semana" errorClass="error" infoClass="info"/>
+            </p>  
+            <ui:param name="lblMes" value="Mes"/>
+            <p class="campo">
+                <label for="mes" label="#{lblMes}" accesskey="M">
+                    #{lblMes}
+                </label>
+                <input jsf:id="mes" type="month" jsf:label="#{lblMes}" required="required"
+                       jsf:value="#{cFechas.mes}"/>
+                <br /><em>año-mes (ej. 2012-03)</em>
+                <br /><h:message for="mes" errorClass="error" infoClass="info"/>
+            </p>  
+            <p>
+                <input type="submit" value="Procesar" accesskey="P"
+                       jsf:action="#{cFechas.procesa()}" />
+            </p>
+        </form>
+        <footer>
+           UPIICSA IPN
+        </footer>
+    </body>
+</html>
+
+
+

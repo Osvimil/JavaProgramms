@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<!-- Copyright 2014 Ricardo Armando Machorro Reyes
+  Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+  this file except in compliance with the License. You may obtain a copy of the
+  License at
+      http://www.apache.org/licenses/LICENSE-2.0
+  Unless required by applicable law or agreed to in writing, software distributed
+  under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+  CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+  language governing permissions and limitations under the License. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:jsf="http://xmlns.jcp.org/jsf" 
+      xmlns:cc="http://java.sun.com/jsf/composite"> 
+  <cc:interface shortDescription="Botón estandarizado para eliminar objetos.">
+    <cc:attribute name="value" default="Eliminar" type="java.lang.String"
+                  shortDescription="Texto del botón."/>
+    <cc:attribute name="objeto" required="true"
+                  shortDescription="Objeto que se elimina."/>
+    <cc:attribute name="textoDeConfirmacion" required="true" type="java.lang.String"
+                  shortDescription="Texto para confirmar la eliminación."/>
+    <cc:attribute name="aviso" default="\\nNo podrás recuperar los datos."
+                  type="java.lang.String" shortDescription=
+                  "Aviso de que no se recuperan los datos eliminados."/>
+  </cc:interface>
+  <cc:implementation>
+    <span id="#{cc.clientId}">
+      <input jsf:id="v" type="submit" value="#{cc.attrs.value}"
+             jsf:action="#{ctrlElimina.elimina(cc.attrs.objeto)}"
+             onclick="return confirm('#{cc.attrs.textoDeConfirmacion}'
+                         + '#{cc.attrs.aviso}');"/>
+    </span>
+  </cc:implementation>
+</html>

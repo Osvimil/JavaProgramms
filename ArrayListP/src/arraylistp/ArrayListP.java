@@ -33,6 +33,5 @@ public class ArrayListP {
         for(Integer recorredor:lista){
             System.out.println(recorredor);       
         }
-    }
-    
+    }   
 }

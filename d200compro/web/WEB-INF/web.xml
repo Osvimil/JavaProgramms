@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2017 Ricardo Armando Machorro Reyes.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <context-param>
+        <param-name>
+      javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL
+    </param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>net.ramptors.jsf.compro.CtrlInicio</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>0</session-timeout>
+    </session-config>
+    <mime-mapping>
+        <extension>json</extension>
+        <mime-type>application/manifest+json</mime-type>
+    </mime-mapping>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+    <security-constraint>
+        <display-name>Administración</display-name>
+        <web-resource-collection>
+            <web-resource-name>Páginas de Administración</web-resource-name>
+            <description>Administración del sitio.</description>
+            <url-pattern>/faces/formCategorias.xhtml</url-pattern>
+            <url-pattern>/faces/formClientes.xhtml</url-pattern>
+            <url-pattern>/faces/formProductos.xhtml</url-pattern>
+            <url-pattern>/faces/formUsuarios.xhtml</url-pattern>
+            <url-pattern>/faces/formReporte.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Solo los administradores tienen acceso.</description>
+            <role-name>Administrador</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Compras</display-name>
+        <web-resource-collection>
+            <web-resource-name>Compras</web-resource-name>
+            <description>Páginas para realizar compras.</description>
+            <url-pattern>/faces/formCarrito.xhtml</url-pattern>
+            <url-pattern>/faces/formProductosCliente.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>Solo los clientes pueden entrar.</description>
+            <role-name>Cliente</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>Inicio De Sesión</display-name>
+        <web-resource-collection>
+            <web-resource-name>Inicio de Sesión</web-resource-name>
+            <description>Requiere inicio de sesión.</description>
+            <url-pattern>/faces/inicioDeSesion.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>
+        Todos los roles entran a la página, pero forzosamente deben tener un rol
+        asociado.
+      </description>
+            <role-name>*</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--  <security-constraint>
+    <display-name>Todo Encriptado (Solo con certificados https)</display-name>
+    <web-resource-collection>
+      <web-resource-name>Todas las url</web-resource-name>
+      <description>Representa a todas las url</description>
+      <url-pattern>/faces/*</url-pattern>
+    </web-resource-collection>
+    <user-data-constraint>
+      <description>Encriptado</description>
+      <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>-->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>compro</realm-name>
+        <form-login-config>
+            <form-login-page>/faces/formIniciarSesion.xhtml</form-login-page>
+            <form-error-page>/faces/formErrorIniciandoSesion.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    <security-role>
+        <description>Administra el sistema.</description>
+        <role-name>Administrador</role-name>
+    </security-role>
+    <security-role>
+        <description>Realiza compras.</description>
+        <role-name>Cliente</role-name>
+    </security-role>
+</web-app>

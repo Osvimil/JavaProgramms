@@ -10,9 +10,9 @@ package herenciauki;
  * @author oswaldosaldivar
  */
 public class Alumno {
-    String nombre="desconocido";
-    String apellidos="desconocido";
-    int edad=000;
+    private String nombre="desconocido";
+    private String apellidos="desconocido";
+    private int edad=000;
 
     public String getNombre() {
         return nombre;

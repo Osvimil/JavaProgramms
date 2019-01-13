@@ -14,11 +14,11 @@ public class Enumeration {
             System.out.printf("%s\t %s\t %s\n",diversos,diversos.getCiudad(),diversos.getDivision());
         
         
-        System.out.println("\n Rango de los equipos:\n");
+        /* System.out.println("\n Rango de los equipos:\n");
         
         for(Equipos diversos: EnumSet.range(Equipos.toluca,Equipos.zacatecas))
         
-            System.out.printf("%s\t %s\t %s\n",diversos,diversos.getCiudad(),diversos.getDivision());
+        System.out.printf("%s\t %s\t %s\n",diversos,diversos.getCiudad(),diversos.getDivision());*/
     }
     
 }

@@ -11,11 +11,11 @@ public class Switches {
     
     public static void main(String[] args) {
         
-        dias val;
+        dias valor;
         
-        val = dias.viernes;
+        valor = dias.viernes;
         
-        switch(val){
+        switch(valor){
                 case lunes:
                     System.out.println("Es lunes");
                     break;

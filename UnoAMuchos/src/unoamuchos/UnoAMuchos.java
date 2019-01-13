@@ -49,7 +49,7 @@ public class UnoAMuchos {
             Equipo eq2 = new Equipo(2, "Pumas");
             Jugador jug4 = new Jugador(4, "Ronaldino");
             Jugador jug5 = new Jugador(5, "Kaka");
-            Jugador jug6 = new Jugador(6, "Di Maria");
+            Jugador jug6 = new Jugador(6, "Dinil Maria");
             eq2.setJugadores(new HashSet<Jugador>(Arrays.asList(jug4, jug5, jug6)));
             jug4.setJuegaEn(eq2);
             jug5.setJuegaEn(eq2);

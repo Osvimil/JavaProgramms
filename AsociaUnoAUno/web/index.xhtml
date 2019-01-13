@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:rnjsf="http://xmlns.jcp.org/jsf/composite/rnjsf"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <body>
+    <ui:composition template="/WEB-INF/plantillas/plantilla.xhtml">
+      <ui:param name="título" value="Computadoras"/>
+      <ui:define name="contenido">
+        <link jsf:library="rnjsf" jsf:name="css/listado.css"/>
+        <form jsf:prependId="false">
+          <rnjsf:herramientasPrincipal value="Nueva..."
+                                       filtro="#{ctrlFiltraComputadoras.filtro}"
+                                       action=
+                                       "#{ctrlFiltraComputadoras.cargaInstancias()}"/>
+          <rnjsf:mensajes/>
+          <rnjsf:listado value="#{ctrlFiltraComputadoras.instancias}">
+            <f:facet name="encabezados">
+              <span>Inventario</span>
+              <span>Marca y Modelo</span>
+              <span>Acciones</span>              
+            </f:facet>
+            <span class="principal">
+              <a jsf:outcome="detalle">
+                <f:param name="id" value="#{it.id}"/>
+                #{it.inventario}
+              </a>
+            </span>
+            <span class="secundario">#{it.etiqueta2}</span>
+            <span class="acciones">
+              <rnjsf:botonEliminar objeto="#{it}" textoDeConfirmacion=
+                                   "Confirma eliminar a #{it.inventario}"/>
+            </span>
+          </rnjsf:listado>
+        </form>
+      </ui:define>
+    </ui:composition>
+  </body>
+</html>

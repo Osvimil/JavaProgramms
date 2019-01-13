@@ -11,7 +11,8 @@ package interfacesmias;
  */
 public class Carro implements Rueda,Asientos {
     
-    Carro(){}
+    public Carro(){
+    }
 
     @Override
     public void avanzar() {

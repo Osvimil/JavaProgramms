@@ -1,23 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package forextendido;
+
 import java.util.ArrayList;
 
-/**
- *
- * @author oswaldosaldivar
- */
+
 public class ForExtendido {
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        // TODO code application logic here
-        ArrayList <String> equipos = new ArrayList <String>();
+        
+        /*ArrayList <String> equipos = new ArrayList <String>();
         equipos.add("chivas");
         equipos.add("toluca");
         equipos.add("necaxa");
@@ -27,9 +19,24 @@ public class ForExtendido {
         System.out.println("Los equipos son: ");
         
         int i=0;
-        for(String nombre: equipos){       
-            System.out.println((i+1) + nombre+" ");
-            i++;
+        for(String nombre: equipos){
+        System.out.println((i+1) + nombre+" ");
+        i++;
+        }*/
+        
+        ArrayList <String> escuelas = new ArrayList<String>();
+        escuelas.add("UPIICSA");
+        escuelas.add("UPIITA");
+        escuelas.add("UPIIBI");
+        escuelas.add("ESIME");
+        escuelas.add("ESIQUIE");
+        System.out.println("Escuelas del IPN: ");
+        int contador=0;
+        
+        for(String nombres: escuelas){
+            System.out.println((contador+1+". ")+ nombres+ " ");
+            contador++;
+        
         }
         
         
